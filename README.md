@@ -1,4 +1,4 @@
-# Calendar Event Manager
+# Calendar Event Manager (Under-Development)
 
 Calendar Event Manager is a Python application that allows users to add events to their Google Calendar using the Google Calendar API.
 
