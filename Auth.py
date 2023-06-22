@@ -1,4 +1,5 @@
 import tkinter as tk
+import webbrowser
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 
@@ -8,13 +9,10 @@ def authenticate_google():
 
     # Set up the Google OAuth flow
     flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes)
-    credentials = flow.run_local_server()
+    authorization_url, _ = flow.authorization_url(prompt="select_account")
 
-    # Save the obtained credentials for future use
-    # You can store the credentials in a secure location or a database
-    # For simplicity, this example saves the credentials to a file
-    credentials_file = "google_credentials.json"
-    credentials.to_json_file(credentials_file)
+    # Open the authorization URL in the user's browser
+    webbrowser.open(authorization_url)
 
     # Close the login window
     login_window.destroy()
