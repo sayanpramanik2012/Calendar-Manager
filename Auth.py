@@ -46,22 +46,21 @@ def update_authorization_status(status):
         pass
 
 
-if __name__ == "__main__":
-    # Create the login window
-    login_window = tk.Tk()
-    login_window.title("Google Login")
+# Create the login window
+login_window = tk.Tk()
+login_window.title("Google Login")
 
-    # Create a label
-    label = tk.Label(
-        login_window, text="Click the button to login with your Google account"
-    )
-    label.pack()
+# Create a label
+label = tk.Label(
+    login_window, text="Click the button to login with your Google account"
+)
+label.pack()
 
-    # Create a button to initiate the login process
-    login_button = tk.Button(
-        login_window, text="Login with Google", command=authenticate_google
-    )
-    login_button.pack()
+# Create a button to initiate the login process
+login_button = tk.Button(
+    login_window, text="Login with Google", command=authenticate_google
+)
+login_button.pack()
 
-    # Start the login window's event loop
-    login_window.mainloop()
+# Start the login window's event loop
+login_window.mainloop()

@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
 import json
-import auth
 
 
 def add_event():
@@ -55,7 +54,7 @@ def check_authorization():
 
 def authorize_user():
     # Open the login window for user authorization
-    auth.login_window.mainloop()
+    import auth
 
 
 # Check if the user is authorized
