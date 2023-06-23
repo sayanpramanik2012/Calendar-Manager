@@ -1,8 +1,10 @@
 import tkinter as tk
+import Auth
 
 
 def add_event():
     # Implement the code to add the event to the calendar
+
     pass
 
 

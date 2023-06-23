@@ -1,29 +1,41 @@
 import tkinter as tk
-import webbrowser
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 
 def authenticate_google():
     # Define the scopes required for Google Calendar API access
-    scopes = ["https://www.googleapis.com/auth/calendar.events"]
+    scopes = ["https://www.googleapis.com/auth/calendar"]
 
     # Set up the Google OAuth flow
     flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes)
     authorization_url, _ = flow.authorization_url(prompt="select_account")
+    flow.run_local_server()
 
-    # Open the authorization URL in the user's browser
-    webbrowser.open(authorization_url)
+    # Create the success window
+    success_window = tk.Tk()
+    success_window.title("Successful Login")
+
+    # Create a label for successful login message
+    success_label = tk.Label(success_window, text="Authentication successful!")
+    success_label.pack()
+
+    def launch_main_app():
+        success_window.destroy()
+        import main  # Import main.py
+
+        main.launch_application()  # Call the launch_application() function from main.py
+
+    # Create a button to launch the main application
+    launch_button = tk.Button(
+        success_window, text="Launch Application", command=launch_main_app
+    )
+    launch_button.pack()
+
+    # Start the success window's event loop
+    success_window.mainloop()
 
     # Close the login window
     login_window.destroy()
-
-    # Launch the main application
-    launch_application()
-
-
-def launch_application():
-    # Implement the code to launch the main application
-    pass
 
 
 # Create the login window
