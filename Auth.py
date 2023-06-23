@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import messagebox
+import json
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 
@@ -14,28 +16,34 @@ def authenticate_google():
     # Create the success window
     success_window = tk.Tk()
     success_window.title("Successful Login")
+    update_authorization_status(1)
 
     # Create a label for successful login message
     success_label = tk.Label(success_window, text="Authentication successful!")
     success_label.pack()
 
-    def launch_main_app():
+    def close_windows():
         success_window.destroy()
-        import main  # Import main.py
+        login_window.destroy()
 
-        main.launch_application()  # Call the launch_application() function from main.py
-
-    # Create a button to launch the main application
-    launch_button = tk.Button(
-        success_window, text="Launch Application", command=launch_main_app
-    )
-    launch_button.pack()
+    # Create a button to close both windows
+    close_button = tk.Button(success_window, text="Close", command=close_windows)
+    close_button.pack()
 
     # Start the success window's event loop
     success_window.mainloop()
 
-    # Close the login window
-    login_window.destroy()
+
+def update_authorization_status(status):
+    try:
+        with open("check.json", "r+") as file:
+            data = json.load(file)
+            data["authorization_status"] = status
+            file.seek(0)
+            json.dump(data, file, indent=4)
+            file.truncate()
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
 
 
 # Create the login window
