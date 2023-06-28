@@ -9,7 +9,9 @@ def authenticate_google():
     scopes = ["https://www.googleapis.com/auth/calendar"]
 
     # Set up the Google OAuth flow
-    flow = InstalledAppFlow.from_client_secrets_file("credentials.json", scopes=scopes)
+    flow = InstalledAppFlow.from_client_secrets_file(
+        "./assets/credentials.json", scopes=scopes
+    )
     authorization_url, _ = flow.authorization_url(prompt="select_account")
     flow.run_local_server()
 
@@ -36,7 +38,7 @@ def authenticate_google():
 
 def update_authorization_status(status):
     try:
-        with open("check.json", "r+") as file:
+        with open("./assets/check.json", "r+") as file:
             data = json.load(file)
             data["authorization_status"] = status
             file.seek(0)
