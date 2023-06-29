@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import json
 from google_auth_oauthlib.flow import InstalledAppFlow
+import webbrowser
 
 
 def authenticate_google():
@@ -12,13 +13,12 @@ def authenticate_google():
     flow = InstalledAppFlow.from_client_secrets_file(
         "./assets/credentials.json", scopes=scopes
     )
-    authorization_url, _ = flow.authorization_url(prompt="select_account")
-    flow.run_local_server()
+    creds = flow.run_local_server(port=0)
 
     # Create the success window
     success_window = tk.Tk()
     success_window.title("Successful Login")
-    update_authorization_status(1)
+    update_authorization_creds(creds)  # Pass 'creds' as an argument
 
     # Create a label for successful login message
     success_label = tk.Label(success_window, text="Authentication successful!")
@@ -36,18 +36,12 @@ def authenticate_google():
     success_window.mainloop()
 
 
-def update_authorization_status(status):
-    try:
-        with open("./assets/check.json", "r+") as file:
-            data = json.load(file)
-            data["authorization_status"] = status
-            file.seek(0)
-            json.dump(data, file, indent=4)
-            file.truncate()
-    except (FileNotFoundError, json.JSONDecodeError):
-        pass
+def update_authorization_creds(creds):  # Add 'creds' as a parameter
+    with open("./assets/token.json", "w") as token:
+        token.write(creds.to_json())
 
 
+creds = None
 # Create the login window
 login_window = tk.Tk()
 login_window.title("Google Login")

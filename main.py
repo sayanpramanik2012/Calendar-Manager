@@ -1,17 +1,22 @@
 import tkinter as tk
 from tkinter import messagebox
 import json
-from screen import launch_application, add_event
-from screen import fetch_events
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
+from screen import launch_application, add_event, fetch_events
+import os.path
 
 
 def check_authorization():
-    try:
-        with open("assets/check.json", "r") as file:
-            data = json.load(file)
-            return data.get("authorization_status", 0) == 1
-    except (FileNotFoundError, json.JSONDecodeError):
-        return False
+    creds = None
+    if os.path.exists("./assets/token.json"):
+        creds = Credentials.from_authorized_user_file("./assets/token.json")
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            return False
+    return True  # Return True if the credentials are valid
 
 
 def authorize_user():
@@ -29,6 +34,4 @@ else:
         "Authorization Required", "Please log in to verify your account."
     )
     authorize_user()
-    if check_authorization():
-        # If authorized, launch the application
-        launch_application()
+    launch_application()
