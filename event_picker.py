@@ -58,6 +58,3 @@ def create_event_window():
     done_button.grid(row=len(data["dates"]) + 1, column=0, columnspan=2)
 
     event_window.mainloop()
-
-
-create_event_window()
