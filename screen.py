@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import json
 from internal import calendar_fetcher
+from side import display_events
 
 
 def add_event():
@@ -64,6 +65,9 @@ def launch_application():
     # Create a button to add the event
     add_button = tk.Button(window, text="Add Event", command=add_event)
     add_button.pack()
+
+    event_button = tk.Button(window, text="Show all Event", command=display_events)
+    event_button.pack()
 
     # Start the main event loop
     window.mainloop()
