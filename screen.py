@@ -47,12 +47,12 @@ def create_checkbox(data, checkbox_vars, index):
         command=lambda index=index: update_checkbox_state(data, checkbox_vars, index),
     )
     checkbox.select() if data["dates"][index]["alert"] == "1" else checkbox.deselect()
-    checkbox.grid(row=index + 1, column=2)
+    checkbox.grid(row=index + 6, column=0, padx=(7, 2), sticky="w")
 
 
-def create_label(date, index):
-    label = tk.Label(window, text=date)
-    label.grid(row=index + 1, column=1)
+# def create_label(date, index):
+#     label = tk.Label(window, text=date)
+#     label.grid(row=index + 6, column=1, padx=(7, 2), sticky="w")
 
 
 def done(data, checkbox_vars):
@@ -72,21 +72,31 @@ def create_event_window():
 
     # Create checkboxes and labels dynamically
     for index, date_entry in enumerate(data["dates"]):
-        date = date_entry["date"]
-        alert = date_entry["alert"]
+        date_time_event = date_entry["date"].split("@")
+        date_time = date_time_event[1].split("-")
+        date = date_time[0].strip()
+        time = date_time[1].strip()
+        event_name = date_time_event[0].split(" ", 2)[2]
 
-        checkbox_var = tk.IntVar(value=int(alert))
+        checkbox_var = tk.IntVar(value=int(date_entry["alert"]))
         checkbox_vars.append(checkbox_var)
 
-        create_label(date, index)
+        # create_label(date, index)
         create_checkbox(data, checkbox_vars, index)
+
+        # Print the event details on the Tkinter window
+        event_details = (
+            f"Date and Start-time: {date}\nEnd-time: {time}\nEvent: {event_name}"
+        )
+        event_label = tk.Label(window, text=event_details)
+        event_label.grid(row=index + 6, column=1, padx=(1, 12), pady=(3, 3))
 
     done_button = tk.Button(
         window,
         text="Done",
         command=lambda: done(data, checkbox_vars),
     )
-    done_button.grid(row=len(data["dates"]) + 1, column=1, columnspan=2)
+    done_button.grid(row=len(data["dates"]) + 6, pady=(5, 5), column=0, columnspan=3)
 
 
 def fetch_events():
@@ -109,39 +119,48 @@ def launch_application():
 
     # Create a label
     label = tk.Label(window, text="Add Event to Calendar")
-    label.grid(row=0, column=0, columnspan=2)
+    label.grid(row=0, column=0, padx=(7, 2), columnspan=3)
 
     # Create a button to fetch events
-    fetch_button = tk.Button(window, text="Fetch Events", command=fetch_events)
-    fetch_button.grid(row=1, column=0, columnspan=2)
+    fetch_button = tk.Button(
+        window, text="Fetch all events from Google Calendar", command=fetch_events
+    )
+    fetch_button.grid(row=1, column=0, pady=(10, 10), padx=(7, 2), columnspan=3)
 
     # Create an entry field for the event title
     global title_entry
     title_label = tk.Label(window, text="Event Title:")
-    title_label.grid(row=2, column=0, sticky="e")
+    title_label.grid(row=2, column=0, padx=(7, 2), sticky="e")
     title_entry = tk.Entry(window)
-    title_entry.grid(row=2, column=1, sticky="w")
+    title_entry.grid(row=2, column=1, padx=(7, 2), sticky="w")
 
     # Create an entry field for the event date
     global date_entry
     date_label = tk.Label(window, text="Event Date:")
-    date_label.grid(row=3, column=0, sticky="e")
+    date_label.grid(row=3, column=0, padx=(7, 2), sticky="e")
     date_entry = tk.Entry(window)
-    date_entry.grid(row=3, column=1, sticky="w")
+    date_entry.grid(row=3, column=1, padx=(7, 2), sticky="w")
 
     # Create an entry field for the event time
     global time_entry
     time_label = tk.Label(window, text="Event Time:")
-    time_label.grid(row=4, column=0, sticky="e")
+    time_label.grid(row=4, column=0, padx=(7, 2), sticky="e")
     time_entry = tk.Entry(window)
-    time_entry.grid(row=4, column=1, sticky="w")
+    time_entry.grid(row=4, column=1, padx=(7, 2), sticky="w")
 
     # Create a button to add the event
-    add_button = tk.Button(window, text="Add Event", command=add_event)
+    add_button = tk.Button(
+        window, text="Add event to Google Calendar", command=add_event
+    )
     add_button.grid(row=5, column=0, columnspan=2)
 
-    event_button = tk.Button(window, text="Show all Event", command=create_event_window)
-    event_button.grid(column=1, columnspan=1, pady=(10, 200), padx=(70, 210))
+    event_button = tk.Button(
+        window, text="Show all existing events", command=create_event_window
+    )
+    event_button.grid(column=0, columnspan=3, pady=(12, 100), padx=(7, 2))
 
     # Start the main event loop
     window.mainloop()
+
+
+launch_application()

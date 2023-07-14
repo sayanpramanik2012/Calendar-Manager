@@ -15,7 +15,7 @@ def fetch_all_events():
         .list(
             calendarId="primary",
             timeMin=now,
-            maxResults=12,
+            maxResults=5,
             singleEvents=True,
             orderBy="startTime",
         )
