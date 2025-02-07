@@ -1,0 +1,46 @@
+name: Build and Publish
+
+on:
+  push:
+    tags:
+      - main  # Trigger on version tags
+  workflow_dispatch:  # Allow manual runs
+
+jobs:
+  build-windows-exe:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller pytz tkcalendar google-api-python-client google-auth-httplib2 google-auth-oauthlib plyer
+
+    - name: Build executable
+      run: |
+        pyinstaller --noconfirm build.spec
+
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: CalendarManager
+        path: |
+          dist/CalendarManager/*
+          assets/
+
+    - name: Create release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          dist/CalendarManager/CalendarManager.exe
+          assets/*
+        body: ${{ github.event.head_commit.message }}
