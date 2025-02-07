@@ -1,84 +1,63 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Calendar Event Manager</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-      }
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar Event Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📅 Calendar Event Manager</h1>
+    
+    <p class="lead">
+      Welcome to the Calendar Event Manager – your simple solution for managing Google Calendar events.
+    </p>
 
-      h1 {
-        color: #333;
-      }
+    <div class="features">
+      <h2>Key Features</h2>
+      <ul>
+        <li>Easy event creation and management</li>
+        <li>Secure Google Calendar integration</li>
+        <li>Simple and intuitive interface</li>
+      </ul>
+    </div>
 
-      p {
-        line-height: 1.5;
-      }
-
-      .container {
-        max-width: 600px;
-        margin: 0 auto;
-      }
-
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #333;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-      }
-
-      .button:hover {
-        background-color: #555;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Calendar Event Manager</h1>
+    <div class="setup">
+      <h2>Getting Started</h2>
       <p>
-        Welcome to the Calendar Event Manager website. This application allows
-        you to add events to your Google Calendar with ease.
-      </p>
-      <p>
-        To get started, make sure you have the necessary credentials file
-        (<code>credentials.json</code>) and Python packages installed. You can
-        refer to the project's
-        <a href="https://github.com/sayanpramanik2012/Calendar-Manager"
-          >GitHub repository</a
-        >
-        for more information.
-      </p>
-      <p>
-        Once you have everything set up, run the Python script to launch the
-        application and start managing your calendar events.
-      </p>
-      <p>
-        For detailed instructions and usage, please check out the
-        <a href="https://github.com/sayanpramanik2012/Calendar-Manager/blob/main/README.md"
-          >README</a
-        >
-        file in the project repository.
-      </p>
-      <p>Thank you for using the Calendar Event Manager!</p>
-      <p>
-        <button onclick="redirectToPrivacyPage()">Go to Privacy Page</button>
-
-        <script>
-          // Function to redirect to privacy.html
-          function redirectToPrivacyPage() {
-            window.location.href = "privacy.html";
-          }
-        </script>
-        <a
-          class="button"
-          href="https://github.com/sayanpramanik2012/Calendar-Manager"
-          >GitHub Repository</a
-        >
+        To begin:
+        <ol>
+          <li>Ensure you have the <code>credentials.json</code> file</li>
+          <li>Install required Python packages</li>
+          <li>Run the application script</li>
+        </ol>
       </p>
     </div>
-  </body>
+
+    <div class="button-group">
+      <button class="button" onclick="redirectToPrivacyPage()">
+        Privacy Policy
+      </button>
+      <a href="https://github.com/sayanpramanik2012/Calendar-Manager" class="button">
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="documentation">
+      <p>
+        For detailed instructions, visit our 
+        <a href="https://github.com/sayanpramanik2012/Calendar-Manager/blob/main/README.md">
+          documentation
+        </a>.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function redirectToPrivacyPage() {
+      window.location.href = "privacy.html";
+    }
+  </script>
+</body>
 </html>
