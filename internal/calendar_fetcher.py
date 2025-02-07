@@ -2,6 +2,18 @@ from googleapiclient.discovery import build
 from datetime import datetime, timedelta
 import json
 
+def delete_event(creds, event_id):
+    try:
+        service = build("calendar", "v3", credentials=creds)
+        service.events().delete(
+            calendarId="primary",
+            eventId=event_id
+        ).execute()
+        return True
+    except Exception as e:
+        print(f"Delete error: {e}")
+        return False
+    s
 def fetch_all_events(creds):
     try:
         service = build("calendar", "v3", credentials=creds)

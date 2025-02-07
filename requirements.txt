@@ -1,2 +1,10 @@
-google-auth-oauthlib==0.4.6
-requests==2.31.0
+google-auth-oauthlib
+requests
+tkcalendar
+pytz
+google-auth-httplib2
+google-auth-oauthlib
+google-api-python-client
+tkinter
+win10toast
+plyer

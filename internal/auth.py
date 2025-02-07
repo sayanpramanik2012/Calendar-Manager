@@ -1,8 +1,8 @@
+from google.oauth2.credentials import Credentials 
 import tkinter as tk
 from tkinter import messagebox
 from google_auth_oauthlib.flow import InstalledAppFlow
 import os
-from google.oauth2.credentials import Credentials 
 
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
