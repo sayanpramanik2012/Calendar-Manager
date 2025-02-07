@@ -1,28 +1,35 @@
-# Calendar Event Manager (Under-Development)
+# 📅 Calendar Event Manager (Under-Development) [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-Calendar Event Manager is a Python application that allows users to add events to their Google Calendar using the Google Calendar API.
+A Python application for seamless Google Calendar integration, providing intuitive event management through a user-friendly interface.
 
-## Features
+![Application Preview](https://via.placeholder.com/800x400.png?text=Application+Preview) <!-- Add actual screenshot later -->
 
-- Add events to Google Calendar with a title, date, and time.
-- Simple and intuitive user interface.
-- Integration with the Google Calendar API for seamless event management.
+## ✨ Features
 
- ## Contributing
+- 🎯 **Simple Event Management**
+  - Create events with title, date, and time
+  - Quick-add interface for fast event creation
+- 🔒 **Secure Integration**
+  - OAuth 2.0 authentication with Google Calendar API
+  - Encrypted credential storage
+- 🖥️ **User-Friendly Interface**
+  - Clean Tkinter GUI with intuitive controls
+  - Real-time validation for event details
+- ⚙️ **Flexible Configuration**
+  - Customizable event reminders
+  - Timezone-aware scheduling
 
-Contributions are welcome! If you would like to contribute to this project, please follow these steps:
+## 🚀 Getting Started
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them with descriptive commit messages.
-4. Push your changes to your forked repository.
-5. Submit a pull request to the main repository.
+### Prerequisites
 
-## License
+- Python 3.8+
+- Google account with Calendar enabled
+- `credentials.json` from Google Cloud Console
 
-This project is licensed under the [MIT License](LICENSE).
+### Installation
 
-## Acknowledgements
-
-- The application is built using the `tkinter` library for the graphical user interface.
-- The Google Calendar API is utilized for managing calendar events.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sayanpramanik2012/Calendar-Manager.git
+   cd Calendar-Manager
