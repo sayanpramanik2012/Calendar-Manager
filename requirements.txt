@@ -7,3 +7,4 @@ google-api-python-client==2.120.0
 plyer==2.1.0
 pyinstaller==6.8.0
 python-dateutil==2.9.0
+pyinstaller==6.11.1

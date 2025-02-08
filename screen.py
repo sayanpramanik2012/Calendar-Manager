@@ -275,32 +275,51 @@ class CalendarApp:
         def alarm_loop():
             while True:
                 try:
-                    with open("assets/events.json") as f:
+                    with open("assets/events.json", "r") as f:
                         events = json.load(f)
                         now = datetime.now(self.selected_timezone)
                         
                         for event in events:
-                            event_id = event.get("id")
-                            if event_id in self.notified_events:
-                                continue
+                            try:
+                                event_id = event.get("id")
+                                if not event_id or event_id in self.notified_events:
+                                    continue
                                 
-                            start = event["start"].get("dateTime")
-                            if start:
+                                if not isinstance(event, dict):
+                                    continue
+                                    
+                                start = event.get("start", {})
+                                if not isinstance(start, dict):
+                                    continue
+                                    
+                                date_time = start.get("dateTime")
+                                if not date_time:
+                                    continue
+                                    
                                 event_time = datetime.fromisoformat(
-                                    start.replace('Z', '+00:00')
+                                    date_time.replace('Z', '+00:00')
                                 ).astimezone(self.selected_timezone)
                                 
-                                # Show notification 5 minutes before and at event time
                                 if now >= event_time - timedelta(minutes=5):
                                     self.show_reminder(event)
                                     self.notified_events.add(event_id)
+                                    
+                            except Exception as e:
+                                print(f"Error processing event: {e}")
+                                continue
+                                
+                except FileNotFoundError:
+                    print("Events file not found")
+                except json.JSONDecodeError:
+                    print("Invalid events file format")
                 except Exception as e:
-                    print(f"Alarm error: {e}")
+                    print(f"Alarm system error: {e}")
+                    
                 time.sleep(60)  # Check every minute
 
         self.alarm_thread = threading.Thread(target=alarm_loop, daemon=True)
         self.alarm_thread.start()
-
+    
     def show_reminder(self, event):
         event_time = datetime.fromisoformat(
             event["start"].get("dateTime").replace('Z', '+00:00')
